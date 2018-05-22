@@ -72,9 +72,9 @@ namespace HTTP_Server
             {
                 try
                 {
-                    response += "\r\n" + System.Text.Encoding.UTF8.GetString(_content);
+                    response += Encoding.UTF8.GetString(_content);
                 }
-                catch (Exception ex) { }
+                catch (Exception) { }
             }
 
             return response;

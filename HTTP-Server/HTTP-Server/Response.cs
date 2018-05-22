@@ -70,7 +70,7 @@ namespace HTTP_Server
         {
             string response = "";
             // Status line
-            response += string.Format("HTTP 1.0 {0} {1}\r\n", ((int)_statusCode).ToString(), _statusCode.ToString());
+            response += string.Format("HTTP/1.0 {0} {1}\r\n", ((int)_statusCode).ToString(), _statusCode.ToString());
 
             // Headers
             response += "Content-Type: " + _contentType + "\r\n";

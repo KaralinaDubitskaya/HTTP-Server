@@ -9,10 +9,8 @@ namespace HTTP_Server
     public static class Configuration
     {
         public static string ServerHTTPVersion = "HTTP/1.1";
+        public static int Port = 8081;
         public static string WebDir = "\\web";
-        public static string RedirectionDefaultPageName = "Redirect.html";
-        public static string BadRequestDefaultPageName = "BadRequest.html";
-        public static string NotFoundDefaultPageName = "NotFound.html";
-        public static string InternalErrorDefaultPageName = "InternalError.html";
+        public static string PageNotFound = "\\NotFound.html";
     }
 }

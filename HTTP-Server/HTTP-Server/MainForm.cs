@@ -17,12 +17,12 @@ namespace HTTP_Server
             CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
 
-            HTTPServer server = new HTTPServer(8081, LogMessage);
+            HTTPServer server = new HTTPServer(Configuration.Port, LogMessage);
         }
 
         private void LogMessage(string msg)
         {
-            textBox.Text += msg + "\r\n\r\n";
+            textBox.Text += "\r\n\r\n" + msg + "\r\n\r\n";
         }
     }
 }

@@ -10,6 +10,7 @@ namespace HTTP_Server
     public enum StatusCode
     {
         OK = 200,
+        Created = 201,
         InternalServerError = 500,
         NotFound = 404,
         BadRequest = 400
@@ -28,7 +29,7 @@ namespace HTTP_Server
             {
                 _statusCode = StatusCode.BadRequest;
                 _contentType = "text/html";
-                _content = GetFileContent(Configuration.BadRequestDefaultPageName);
+                _content = null;
             }
 
             if (request.Method == RequestMethod.GET || request.Method == RequestMethod.HEAD)
@@ -45,8 +46,16 @@ namespace HTTP_Server
                 {
                     _statusCode = StatusCode.NotFound;
                     _contentType = "text/html";
-                    _content = GetFileContent(Configuration.NotFoundDefaultPageName);
+                    _content = GetFileContent(Configuration.PageNotFound);
                 }
+            }
+
+            if (request.Method == RequestMethod.POST)
+            {
+                _method = request.Method;
+                _contentType = "text/html";
+                _content = null;
+                _statusCode = PutFileContent(request.URL, Encoding.UTF8.GetBytes(request.Content));
             }
         }
 
@@ -65,7 +74,7 @@ namespace HTTP_Server
 
             // Headers
             response += "Content-Type: " + _contentType + "\r\n";
-            response += "Content-Length: " + _content?.Length + "\r\n";
+            response += "Content-Length: " + (_content?.Length ?? 0).ToString() + "\r\n";
             response += "Date: " + DateTime.Now + "\r\n\r\n";
 
             if (_method == RequestMethod.GET)
@@ -97,6 +106,35 @@ namespace HTTP_Server
             else
             {
                 return null;
+            }
+        }
+
+        private StatusCode PutFileContent(string path, byte[] data)
+        {
+            string filePath = Environment.CurrentDirectory + Configuration.WebDir + path;
+            FileInfo file = new FileInfo(filePath);
+
+            if (file.Exists)
+            {
+                // Write to the file
+                using (FileStream fileStream = file.OpenWrite())
+                {
+                    //Add some information to the file.
+                    BinaryWriter writer = new BinaryWriter(fileStream);
+                    writer.Write(data, 0, data.Length);
+                }
+                return StatusCode.OK;
+            }
+            else
+            {
+                //Create the file.
+                using (FileStream fileStream = file.Create())
+                {
+                    //Add some information to the file.
+                    BinaryWriter writer = new BinaryWriter(fileStream);
+                    writer.Write(data, 0, data.Length);
+                }
+                return StatusCode.Created;
             }
         }
     }

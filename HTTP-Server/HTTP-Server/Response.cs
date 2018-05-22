@@ -66,11 +66,15 @@ namespace HTTP_Server
             // Headers
             response += "Content-Type: " + _contentType + "\r\n";
             response += "Content-Length: " + _content?.Length + "\r\n";
-            response += "Date: " + DateTime.Now + "\r\n";
+            response += "Date: " + DateTime.Now + "\r\n\r\n";
 
             if (_method == RequestMethod.GET)
             {
-                response += "\r\n" + System.Text.Encoding.UTF8.GetString(_content);
+                try
+                {
+                    response += "\r\n" + System.Text.Encoding.UTF8.GetString(_content);
+                }
+                catch (Exception ex) { }
             }
 
             return response;

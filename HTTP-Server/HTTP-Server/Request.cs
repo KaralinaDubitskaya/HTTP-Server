@@ -6,9 +6,16 @@ using System.Threading.Tasks;
 
 namespace HTTP_Server
 {
+    public enum RequestMethod
+    {
+        GET,
+        POST,
+        HEAD
+    }
+
     public class Request
     {
-        public string Method { get; }
+        public RequestMethod Method { get; }
         public string URL { get; }
 
         public Request(string msg)
@@ -20,8 +27,8 @@ namespace HTTP_Server
 
             char[] separators = { ' ', '\n' };
             string[] tokens = msg.Split(separators);
-            Method = tokens[0];
-            URL = tokens[1];
+            Method = (RequestMethod)Enum.Parse(typeof(RequestMethod), tokens[0]);
+            URL = tokens[1].Replace("/", "\\");
         }
     }
 }

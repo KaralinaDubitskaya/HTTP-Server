@@ -1,6 +1,6 @@
 ﻿namespace HTTP_Server
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,12 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.textBox = new System.Windows.Forms.TextBox();
+            this.SuspendLayout();
+            // 
+            // textBox
+            // 
+            this.textBox.Location = new System.Drawing.Point(12, 12);
+            this.textBox.Multiline = true;
+            this.textBox.Name = "textBox";
+            this.textBox.ReadOnly = true;
+            this.textBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBox.Size = new System.Drawing.Size(483, 583);
+            this.textBox.TabIndex = 0;
+            // 
+            // MainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(507, 607);
+            this.Controls.Add(this.textBox);
+            this.Name = "MainForm";
+            this.Text = "HTTP Server";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.TextBox textBox;
     }
 }
 

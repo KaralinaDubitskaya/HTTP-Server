@@ -10,11 +10,19 @@ using System.Windows.Forms;
 
 namespace HTTP_Server
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        public MainForm()
         {
+            CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
+
+            HTTPServer server = new HTTPServer(8081, LogMessage);
+        }
+
+        private void LogMessage(string msg)
+        {
+            textBox.Text += msg + "\r\n\r\n";
         }
     }
 }

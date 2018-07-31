@@ -27,5 +27,5 @@ of the HTML client with the HTML server is displayed.
 
 ### Contact
 
-Karalina Dubitskaya
+Karalina Dubitskaya                                                                                          
 karalinadubitskaya@gmail.com
